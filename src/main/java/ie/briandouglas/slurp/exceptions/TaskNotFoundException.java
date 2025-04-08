@@ -16,11 +16,18 @@
 package ie.briandouglas.slurp.exceptions;
 
 /**
- *
+ * Exception thrown when a requested task cannot be found.
+ * 
  * @author Brian Douglas
  */
 public class TaskNotFoundException extends RuntimeException {
 
+    /**
+     * Constructs a new {@code TaskNotFoundException} with the specified detail message.
+     * 
+     * @param message The detail message, which provides additional information about
+     *                the task that could not be found.
+     */
     public TaskNotFoundException(String message) {
         super(message);
     }

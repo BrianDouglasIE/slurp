@@ -27,20 +27,41 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- *
+ * A Slurp instance is used to register and execute {@link SlurpTask}s. It
+ * manages a collection of tasks that can be executed by their name.
+ * 
+ * <p>
+ * This class is thread-safe.
+ * </p>
+ * 
  * @author Brian Douglas
  */
 public class Slurp {
 
 	private final HashMap<String, SlurpTask> tasks = new HashMap<>();
 
+	/**
+	 * Constructs a new Slurp instance.
+	 */
 	public Slurp() {
 	}
 
+	/**
+	 * Returns a set of all registered task names.
+	 * 
+	 * @return a set of task names
+	 */
 	public Set<String> getTaskNames() {
 		return tasks.keySet();
 	}
 
+	/**
+	 * Registers a {@link SlurpTask}. The registered task can then be executed by
+	 * its name.
+	 * 
+	 * @param task the task to register
+	 * @throws DuplicateTaskException if a task with the same name already exists
+	 */
 	public void registerTask(SlurpTask task) {
 		if (tasks.containsKey(task.name())) {
 			throw new DuplicateTaskException("Task with name '" + task.name() + "' already exists");
@@ -49,6 +70,12 @@ public class Slurp {
 		tasks.put(task.name(), task);
 	}
 
+	/**
+	 * Executes a registered {@link SlurpTask} by its name.
+	 * 
+	 * @param taskName the name of the task to execute
+	 * @throws TaskNotFoundException if no task with the specified name is found
+	 */
 	public void executeTask(String taskName) {
 		if (!tasks.containsKey(taskName)) {
 			throw new TaskNotFoundException("Task with name '" + taskName + "' not found");
@@ -57,10 +84,21 @@ public class Slurp {
 		tasks.get(taskName).runnable().run();
 	}
 
+	/**
+	 * Executes a registered {@link SlurpTask}.
+	 * 
+	 * @param task the task to execute
+	 */
 	public void executeTask(SlurpTask task) {
 		executeTask(task.name());
 	}
 
+	/**
+	 * Executes a sequence of registered tasks by their names.
+	 * 
+	 * @param taskNames the names of the tasks to execute in sequence
+	 * @throws IllegalArgumentException if the task names array is null or empty
+	 */
 	public void executeTaskSequence(String[] taskNames) {
 		if (null == taskNames || 0 == taskNames.length) {
 			throw new IllegalArgumentException("Task names cannot be null or empty");
@@ -69,6 +107,12 @@ public class Slurp {
 		executeTasks(taskNames);
 	}
 
+	/**
+	 * Executes a sequence of registered tasks.
+	 * 
+	 * @param tasks the tasks to execute in sequence
+	 * @throws IllegalArgumentException if the tasks array is null or empty
+	 */
 	public void executeTaskSequence(SlurpTask[] tasks) {
 		if (null == tasks || 0 == tasks.length) {
 			throw new IllegalArgumentException("Tasks cannot be null or empty");
@@ -79,6 +123,11 @@ public class Slurp {
 		executeTasks(taskNames);
 	}
 
+	/**
+	 * Executes a sequence of tasks by their names using a single-threaded executor.
+	 * 
+	 * @param taskNames the names of the tasks to execute
+	 */
 	private void executeTasks(String[] taskNames) {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 

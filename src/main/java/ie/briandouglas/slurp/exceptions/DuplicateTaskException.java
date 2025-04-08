@@ -16,13 +16,19 @@
 package ie.briandouglas.slurp.exceptions;
 
 /**
- *
+ * Exception thrown when an attempt is made to add a duplicate task.
+ * 
  * @author Brian Douglas
  */
 public class DuplicateTaskException extends RuntimeException {
 
+    /**
+     * Constructs a new {@code DuplicateTaskException} with the specified detail message.
+     * 
+     * @param message The detail message, which provides additional information about
+     *                the duplicate task that caused the exception.
+     */
     public DuplicateTaskException(String message) {
         super(message);
     }
 }
-
