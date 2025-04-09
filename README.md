@@ -2,6 +2,24 @@
 
 A Java task runner, with a lean feature set.
 
+## Installation
+
+### Apache Maven
+
+```xml
+<dependency>
+    <groupId>ie.briandouglas</groupId>
+    <artifactId>slurp</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
+### Gradle
+
+```
+implementation group: 'ie.briandouglas', name: 'slurp', version: '1.0'
+```
+
 ## Usage
 
 ### Create a SlurpTask
