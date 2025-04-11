@@ -6,8 +6,18 @@ import org.junit.jupiter.api.Test;
 
 class SlurpTaskTest {
 
+	public class TestRunnable implements Runnable {
+		public void run() {
+		}
+	}
+
 	@Test
-	void testCreateSlurpTaskSuccess() {
+	void testCreateSlurpTaskWithRunnable() {
+		assertDoesNotThrow(() -> new SlurpTask("myTask", new TestRunnable()));
+	}
+
+	@Test
+	void testCreateSlurpTaskWithLambdaRunnable() {
 		assertDoesNotThrow(() -> new SlurpTask("myTask", () -> {
 		}));
 	}

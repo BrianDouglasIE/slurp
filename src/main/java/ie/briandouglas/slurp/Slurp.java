@@ -23,16 +23,10 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * A Slurp instance is used to register and execute {@link SlurpTask}s. It
  * manages a collection of tasks that can be executed by their name.
- * 
- * <p>
- * This class is thread-safe.
- * </p>
  * 
  * @author Brian Douglas
  */

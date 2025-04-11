@@ -47,6 +47,20 @@ slurp.executeTask(printHelloWorld);
 Task names must be unique, if a duplicate task name is registered a `DuplicateTaskException` will be thrown. If an attempt is made to execute
 an unknown task a `TaskNotFoundException` will be thrown.
 
+#### Using a Runnable instance
+
+Note that in the above example a `Runnable` lambda was used as the `SlurpTask`'s runnable. As the lambda expression is syntactic sugar for a `Runnable`
+instance, a `SlurpTask` can also take a class based `Runnable` instance like so:
+
+```java
+public class MyRunnable implements Runnable {
+	public void run() {
+	}
+}
+
+SlurpTask myTask = new SlurpTask("myTask", new MyRunnable());
+```
+
 ### Executing a sequence of tasks
 
 `Slurp` can be used to execute a sequence of tasks. Internally it uses a single threaded executor, and waits for each task to finish before
